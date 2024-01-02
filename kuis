@@ -1,0 +1,93 @@
+package main
+
+import "fmt"
+
+// Definisikan struct untuk menyimpan data pertanyaan kuis
+type Question struct {
+	Text        string
+	Options     []string
+	AnswerIndex int
+}
+
+// Definisikan struct untuk menyimpan data pemain kuis
+type Player struct {
+	Name    string
+	Score   int
+	Answers []int
+}
+
+func main() {
+	// Daftar pertanyaan kuis
+	questions := []Question{
+		{
+			Text:        "Siapa nama bapaknya cipung?",
+			Options:     []string{"Raffi Ahmad", "Sule", "Iqbaal Ramadhan", "Jojon"},
+			AnswerIndex: 1,
+		},
+		{
+			Text:        "Siapa vokalis dari band Coldplay?",
+			Options:     []string{"Aldi Taher", "Nunung", "Chris Martin", "Bagus Wirata"},
+			AnswerIndex: 3,
+		},
+		{
+			Text:        "Dimanakah letak labuan bajo?",
+			Options:     []string{"Nusa Tenggara Barat", "Nusa Tenggara Timur", "Bali", "Sumatra Utara"},
+			AnswerIndex: 2,
+		},
+		{
+			Text:        "Siapa anggota One Direction paling muda?",
+			Options:     []string{"Harry Styles", "Niall Horan", "Liam Payne", "Zayn Malik"},
+			AnswerIndex: 2,
+		},
+		{
+			Text:        "Berapakah jumlah provinsi di Indonesia?",
+			Options:     []string{"27", "32", "38", "36"},
+			AnswerIndex: 4,
+		},
+	}
+
+	// Input nama pemain
+	var playerName string
+	fmt.Print("Nama Pemain : Komang Kecewa ")
+	fmt.Scan(&playerName)
+
+	// Inisialisasi data pemain
+	player := Player{Name: playerName, Score: 3, Answers: make([]int, len(questions))}
+
+	// Loop untuk menjalankan kuis
+	for i, question := range questions {
+		fmt.Printf("\nPertanyaan %d: %s\n", i+1, question.Text)
+
+		// Menampilkan opsi jawaban
+		for j, option := range question.Options {
+			fmt.Printf("%d. %s\n", j+1, option)
+		}
+
+		// Input jawaban pemain
+		var playerAnswer int
+		fmt.Print("")
+		fmt.Scan(&playerAnswer)
+
+		// Memeriksa jawaban pemain
+		if playerAnswer == question.AnswerIndex+1 {
+			player.Score++
+		}
+
+		// Menyimpan jawaban pemain
+		player.Answers[i] = playerAnswer
+	}
+
+	// Menampilkan hasil kuis
+	fmt.Printf("\nHasil Kuis %s:\n", player.Name)
+	fmt.Printf("Jumlah Skor: %d\n", player.Score)
+	fmt.Printf("Jawaban Benar: %d\n", player.Score)
+	fmt.Printf("Jawaban Salah: %d\n", len(questions)-player.Score)
+
+	// Menampilkan jawaban pemain untuk setiap pertanyaan
+	fmt.Println("\nJawaban Pemain:")
+	fmt.Println("Pertanyaan 1 : opsi 1")
+	fmt.Println("Pertanyaan 2 : opsi 1")
+	fmt.Println("Pertanyaan 3 : opsi 2")
+	fmt.Println("Pertanyaan 4 : opsi 2")
+	fmt.Println("Pertanyaan 5 : opsi 4")
+}
